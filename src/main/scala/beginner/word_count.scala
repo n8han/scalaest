@@ -1,7 +1,7 @@
 package scalaest
 
 trait Counter {
-  def count(word: String, inStr: String)
+  def count(word: String, inStr: String): Int
 }
 
 object ScalaestCounter extends MockCounter
