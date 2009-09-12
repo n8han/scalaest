@@ -12,7 +12,7 @@ class SolutionJudge extends Judge {
   import scala.xml.XML
   import scala.io.Source
   def judge(names: Iterable[String]) = names map { name =>
-    println("Researching %s..." format name)
+    println("--- Researching %s ---" format name)
     (name, 
       (XML.load("http://boss.yahooapis.com/ysearch/web/v1/" + java.net.URLEncoder.encode(name, "utf8") + 
         "?appid=afMQBhfV34GPV8xJ7jVsjQUWTgsn.h9RybhtZxPpJf4cQguR.cAxdRnJ6lk0BEh1&format=xml"
@@ -24,7 +24,7 @@ class SolutionJudge extends Judge {
           case _ => println("Fail."); Nil.elements
         }
       }.foldLeft(0) {
-        _ + ScalaestCounter.count("scala", _)
+        _ + ScalaestCounter.count(_)
       }
     )
   }
