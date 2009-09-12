@@ -1,11 +1,11 @@
 package scalaest
 
 trait Attendance {
-  def attendees: Iterable[String]
+  def attendees(event_id: String, key: String): Iterable[String]
 }
 
 object ScalaestAttendance extends MockAttendance
 
 class MockAttendance extends Attendance {
-  def attendees = "Dustin Whitney" :: "Nathan Hamblen" :: "Rob Eccardt" :: Nil
+  def attendees(event_id: String, key: String) = "Dustin Whitney" :: "Nathan Hamblen" :: "Rob Eccardt" :: Nil
 }
