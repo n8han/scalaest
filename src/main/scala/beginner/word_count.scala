@@ -1,13 +1,14 @@
 package scalaest
 
 trait Counter {
-  def count(word: String, inStr: String): Int
+  val word = "scala"
+  def count(inStr: String): Int
 }
 
 object ScalaestCounter extends MockCounter
 
 class MockCounter extends Counter {
-  def count(word: String, inStr: String) = 0
+  def count(inStr: String) = 0
 }
 
 
