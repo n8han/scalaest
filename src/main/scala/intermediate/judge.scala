@@ -1,6 +1,7 @@
 package scalaest
 
 trait Judge {
+  /** Use ScalaestCounter on the contents of the given url */
   def judge(url: String): Int
 }
 
@@ -21,5 +22,5 @@ class SolutionJudge extends Judge {
 }
 
 class MockJudge extends Judge {
-  def judge(url: String) = ScalaestCounter.count("scala scala scala")
+  def judge(url: String) = ScalaestCounter.count("scala scala scala escalada scaloo scala")
 }

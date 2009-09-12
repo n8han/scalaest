@@ -1,6 +1,7 @@
 package scalaest
 
 trait Profiler {
+  /** @return urls related to the given name */
   def urls(name: String): Iterable[String]
 }
 

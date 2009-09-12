@@ -1,8 +1,7 @@
 package scalaest
 
 trait Admin {
-  /** @return names zipped with a score based on the content 
-      of search results for the name */
+  /** oversee the judging process for each name given, return final tally */
   def admin(names: Iterable[String]): Iterable[(String, Int)]
 }
 
