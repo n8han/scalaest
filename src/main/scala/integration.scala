@@ -5,7 +5,7 @@ object App {
     args match {
       case Seq(event_id, key) => 
         ScalaestSorter.sort(
-          ScalaestJudge.judge(ScalaestAttendance.attendees(event_id, key))
+          ScalaestAdmin.admin(ScalaestAttendance.attendees(event_id, key))
         ).foreach(println)
       case _ => 
         println("----------- Usage: run <event id> <api key> -----------")
