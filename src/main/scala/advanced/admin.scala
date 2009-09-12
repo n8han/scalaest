@@ -21,7 +21,9 @@ class SolutionAdmin extends Admin {
 }
 
 class MockAdmin extends Admin {
-  def admin(names: Iterable[String]) = names map { nm => 
-    (nm, ScalaestJudge.judge("http://www.scala-lang.org/"))
+  def admin(names: Iterable[String]) = names map { name => 
+    (name, (0 /: ScalaestProfiler.urls(name).map { url =>
+      ScalaestJudge.judge(url)
+    }) { _ + _ } )
   }
 }
