@@ -1,6 +1,7 @@
 package scalaest
 
 trait Attendance {
+  /** @return meetup attendee names */
   def attendees(event_id: String, key: String): Iterable[String]
 }
 

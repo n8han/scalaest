@@ -1,6 +1,7 @@
 package scalaest
 
 trait Sorter {
+  /** @return sequence ordered ascending by the integer score */
   def sort(in: Iterable[(String, Int)]): Seq[(String, Int)]
 }
 

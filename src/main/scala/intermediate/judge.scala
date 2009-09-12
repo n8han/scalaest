@@ -1,6 +1,7 @@
 package scalaest
 
 trait Judge {
+  /** Use ScalaestCounter on the contents of the given url */
   def judge(url: String): Int
 }
 
