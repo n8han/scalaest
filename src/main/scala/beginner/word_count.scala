@@ -7,7 +7,7 @@ trait Counter {
 object ScalaestCounter extends MockCounter
 
 class MockCounter extends Counter {
-  def count(word: String, inStr: String) = inStr.length / 100
+  def count(word: String, inStr: String) = 0
 }
 
 
