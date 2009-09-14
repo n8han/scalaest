@@ -32,6 +32,7 @@ object ConcurrentAdmin extends Actor {
         scores = (name, count) :: scores
         if (scores.length == names.length) {
           waiter foreach { _ ! Results(scores) }
+          exit()
         }
         println("Finished %d / %d" format (scores.length, names.length))
     } }
