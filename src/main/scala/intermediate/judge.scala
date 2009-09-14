@@ -12,7 +12,10 @@ class SolutionJudge extends Judge {
   def judge(url: String) = {
     println("Referencing %s..." format url)
     try {
-      (0 /: Source.fromURL(url).getLines) {
+      val uc =  new java.net.URL(url).openConnection
+      uc.setConnectTimeout(10000)
+      uc.setReadTimeout(10000)
+      (0 /: Source.fromInputStream(uc.getInputStream).getLines) {
         _ + ScalaestCounter.count(_)
       }
     } catch {
