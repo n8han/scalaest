@@ -8,14 +8,15 @@ trait Attendance {
 object ScalaestAttendance extends SolutionAttendance
 
 class SolutionAttendance extends Attendance {
-  import scala.xml.XML
+  import dispatch._
   def attendees(event_id: String, key: String) = {
-    println("Querying meetup.com...")
-    for (
-      i <- XML.load(
-        "http://api.meetup.com/rsvps.xml?event_id=%s&key=%s" format (event_id, key)
-      ) \\ "item" if (i \ "response").text == "yes"
-    ) yield i \ "name" text
+    print("Querying meetup.com...")
+    (new Http)(
+      :/("api.meetup.com") / "rsvps.xml" <<? Map("event_id" -> event_id, "key" -> key) <> { xml =>
+        println(" done.")
+        for (i <- xml \\ "item" if (i \ "response").text == "yes") yield (i \ "name" text)
+      }
+    )
   }
 }
 
