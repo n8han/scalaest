@@ -23,7 +23,7 @@ object ConcurrentAdmin extends Actor {
   var names = List[String]()
   var waiter: Option[OutputChannel[Any]] = None
   def act =
-    loop { receive {
+    loop { react {
       case Gather(in) =>
         names = in.toList
         waiter = Some(sender)
@@ -46,7 +46,7 @@ class ConcurrentProfiler(admin: Actor, name: String) extends Actor {
     judges = ScalaestProfiler.urls(name).map { url =>
       new ConcurrentJudge(this, url)
     }.toList
-    loop { receive {
+    loop { react {
       case Add(count) =>
         score += count
         judges -= sender
