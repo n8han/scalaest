@@ -8,13 +8,14 @@ trait Judge {
 object ScalaestJudge extends SolutionJudge
 
 class SolutionJudge extends Judge {
+  import dispatch._
+  import Http._
   import scala.io.Source
   def judge(url: String) = {
-    println("Referencing %s..." format url)
     try {
-      (0 /: Source.fromURL(url).getLines) {
-        _ + ScalaestCounter.count(_)
-      }
+      (new Http)(url >~ { so =>
+        (0 /: so.getLines) { _ + ScalaestCounter.count(_) }
+      })
     } catch {
       case e => println(e.getMessage); 0
     }
