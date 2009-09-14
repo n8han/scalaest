@@ -30,12 +30,10 @@ object ConcurrentAdmin extends Actor {
         names foreach { name => new ConcurrentProfiler(this, name) }
       case Score(name, count) => 
         scores = (name, count) :: scores
-        println("adding %s %s" format(name, count) )
         if (scores.length == names.length) {
-          println("done!")
           waiter foreach { _ ! Results(scores) }
         }
-        println("%d / %d" format (scores.length, names.length))
+        println("Finished %d / %d" format (scores.length, names.length))
     } }
   start()
 }
