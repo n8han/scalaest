@@ -5,7 +5,16 @@ trait Admin {
   def admin(names: Iterable[String]): Iterable[(String, Int)]
 }
 
-object ScalaestAdmin extends WaitingAdmin
+object ScalaestAdmin extends FuturesAdmin
+
+import scala.actors.Futures._
+
+class FuturesAdmin extends Admin {
+  def admin(names: Iterable[String]) =
+    names map { name => (name, future((0 /: ScalaestProfiler.urls(name).map
+       { url => ScalaestJudge.judge(url) }) { _ + _ })) } map { case (name,f) => (name, f()) }
+}
+
 
 class WaitingAdmin extends Admin {
   def admin(names: Iterable[String]) = {
@@ -73,10 +82,4 @@ case class Add(count: Int)
 case class Score(name: String, count: Int)
 case class Results(scores: Iterable[(String, Int)])
 
-class SequentialAdmin extends Admin {
-  def admin(names: Iterable[String]) = names map { name => 
-    (name, (0 /: ScalaestProfiler.urls(name).map { url =>
-      ScalaestJudge.judge(url)
-    }) { _ + _ } )
-  }
-}
+
