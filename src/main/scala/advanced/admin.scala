@@ -11,8 +11,13 @@ import scala.actors.Futures._
 
 class FuturesAdmin extends Admin {
   def admin(names: Iterable[String]) =
-    names map { name => (name, future((0 /: ScalaestProfiler.urls(name).map
-       { url => ScalaestJudge.judge(url) }) { _ + _ })) } map { case (name,f) => (name, f()) }
+    names map { name => future { 
+      (name,
+        (0 /: ScalaestProfiler.urls(name).map { url =>
+          future { ScalaestJudge.judge(url) }
+        } ) { _ + _() }
+      )
+    } } map { _() }
 }
 
 
